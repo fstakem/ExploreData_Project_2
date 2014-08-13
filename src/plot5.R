@@ -8,3 +8,7 @@
 #            online Coursera class 'Exploratory Data Analysis' from John Hopkins.
 #
 # -----------------------------------------------------------------------------------------------
+
+
+# Question 5
+#   How have emissions from motor vehicle sources changed from 1999–2008 in Baltimore City?
