@@ -10,7 +10,7 @@
 # -----------------------------------------------------------------------------------------------
 
 # Submission parameters
-raw_data_path <- '../raw_data/household_power_consumption.txt'
+raw_data_path <- '../raw_data/?'
 
 figure_1_path <- "../figure/plot1.png"
 figure_2_path <- "../figure/plot2.png"
