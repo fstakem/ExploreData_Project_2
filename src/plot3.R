@@ -34,6 +34,7 @@ plot_3 <- function()
     point_total_pm_per_year <- aggregate(point_data$Emissions ~ point_data$year, point_data, sum)
     colnames(point_total_pm_per_year)[1] <- 'Year'
     colnames(point_total_pm_per_year)[2] <- 'Emissions'
+    point_total_pm_per_year$emission_type <- 'point'
     
     # Nonpoint
     nonpoint_scc = classification_data[classification_data$Data.Category == 'Nonpoint', ]
@@ -41,6 +42,7 @@ plot_3 <- function()
     nonpoint_total_pm_per_year <- aggregate(nonpoint_data$Emissions ~ nonpoint_data$year, nonpoint_data, sum)
     colnames(nonpoint_total_pm_per_year)[1] <- 'Year'
     colnames(nonpoint_total_pm_per_year)[2] <- 'Emissions'
+    nonpoint_total_pm_per_year$emission_type <- 'nonpoint'
     
     # Onroad
     onroad_scc = classification_data[classification_data$Data.Category == 'Onroad', ]
@@ -48,6 +50,7 @@ plot_3 <- function()
     onroad_total_pm_per_year <- aggregate(onroad_data$Emissions ~ onroad_data$year, onroad_data, sum)
     colnames(onroad_total_pm_per_year)[1] <- 'Year'
     colnames(onroad_total_pm_per_year)[2] <- 'Emissions'
+    onroad_total_pm_per_year$emission_type <- 'onroad'
     
     # Nonroad
     nonroad_scc = classification_data[classification_data$Data.Category == 'Nonroad', ]
@@ -55,12 +58,19 @@ plot_3 <- function()
     nonroad_total_pm_per_year <- aggregate(nonroad_data$Emissions ~ nonroad_data$year, nonroad_data, sum)
     colnames(nonroad_total_pm_per_year)[1] <- 'Year'
     colnames(nonroad_total_pm_per_year)[2] <- 'Emissions'
+    nonroad_total_pm_per_year$emission_type <- 'nonroad'
     
-    p <- ggplot()
-    p + geom_line(point_total_pm_per_year$Year, point_total_pm_per_year$Emissions)
-    p + geom_line(nonpoint_total_pm_per_year$Year, nonpoint_total_pm_per_year$Emissions)
+    # Combined data
+    combined_data <- rbind(point_total_pm_per_year, nonpoint_total_pm_per_year, onroad_total_pm_per_year, nonroad_total_pm_per_year)
     
-    #point_total_pm_per_year$Year, point_total_pm_per_year$Emissions, data=point_total_pm_per_year, geom="line", xlab='Year', ylab='Emissions'
+    # Plot
+    graphic <- ggplot(data=combined_data, aes(x=Year, y=Emissions, group=emission_type, colour=emission_type)) + 
+                geom_line(size=.6) + 
+                geom_point(size =3) + 
+                scale_colour_hue(name="Emission Type", l=60) +
+                ggtitle("Baltimore City Motor Vehicle PM2.5 Emissions per Year") + 
+                ylab("PM2.5 Emissions (tons)")
+    ggsave(filename=figure_3_path, plot=graphic, width=8, height=6, dpi=150)
 }
 
 plot_3()
