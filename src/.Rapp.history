@@ -1,0 +1,7 @@
+load("/Users/fstakem/projects/CourseraDataScience/projects/exploratory_data_analysis/project_2/raw_data/summarySCC_PM25.rds")
+a <- c(1,2,3,4)
+b <- c(1,2,3,4)
+plot(a,b)
+getwd()
+setwd('~/projects/CourseraDataScience/projects/exploratory_data_analysis/project_2/src/')
+source("/Users/fstakem/projects/CourseraDataScience/projects/exploratory_data_analysis/project_2/src/plot1.R")
